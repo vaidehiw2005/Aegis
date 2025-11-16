@@ -1,0 +1,495 @@
+/* General Styling matching the logo theme */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #000000;
+    color: #FFFFFF;
+    padding: 20px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #FF0000;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-top: 20px;
+}
+
+/* Logo placeholder */
+.logo {
+    width: 150px;
+    margin-bottom: 20px;
+}
+.logo img {
+    width: 100%;
+    height: auto;
+}
+
+.simulation-area {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 95%;
+    max-width: 1400px;
+    flex-wrap: wrap;
+}
+
+/* SVG Track Styling */
+#track-svg {
+    border: 2px solid #FF0000;
+    background-color: #1a1a1a;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+    margin: 0 20px;
+    flex-shrink: 0;
+    /* Dimensions and viewBox set in HTML */
+}
+
+#track-path {
+    fill: none;
+    stroke: #FFFFFF;
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Agent Styling (SVG circles) */
+.agent {
+    stroke: #FFFFFF;
+    stroke-width: 1;
+    filter: drop-shadow(0px 0px 3px rgba(255, 255, 255, 0.7));
+}
+
+/* Agent fill colors */
+.agent-1 { fill: #FF0000; /* Red */ }
+.agent-2 { fill: #FFFFFF; /* White */ }
+.agent-3 { fill: #00FFFF; /* Cyan */ }
+.agent-4 { fill: #FFFF00; /* Yellow */ }
+
+/* Styling for the track label inside the SVG */
+#track-label {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 18px; /* Adjust size as needed */
+    font-weight: bold;
+    fill: #FF0000; /* Red text color */
+    text-anchor: middle; /* Horizontally center */
+    dominant-baseline: hanging; /* Aligns top of text to 'y' */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Lap Counter Oval Background (Inside SVG) */
+.lap-oval-bg {
+    fill: #FF0000; /* Red background */
+    stroke: #1a1a1a; /* Dark border (dark grey) */
+    stroke-width: 3; /* Border thickness */
+}
+
+/* Lap Counter Text (Inside SVG) */
+.lap-oval-text {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px; /* Adjust size */
+    font-weight: bold;
+    fill: #FFFFFF; /* White text */
+    text-anchor: middle; /* Center horizontally */
+    dominant-baseline: middle; /* Center vertically */
+}
+
+/* Leaderboard Styling */
+.leaderboard {
+    width: 30%;
+    max-width: 400px;
+    padding-left: 30px;
+    flex-grow: 1;
+    min-width: 300px;
+    margin-top: 10px;
+}
+
+.leaderboard h2 { margin-top: 0; }
+table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9em; }
+th, td { border: 1px solid #333; padding: 10px; text-align: left; }
+th { background-color: #1a1a1a; color: #FF0000; text-transform: uppercase; letter-spacing: 1px;}
+
+/* Controls Styling */
+.controls { text-align: center; margin-top: 40px; border-top: 2px solid #FF0000; padding-top: 30px; width: 90%; max-width: 1200px; }
+button { background-color: #FF0000; color: #000000; border: none; padding: 12px 25px; margin: 10px; font-size: 1.1em; cursor: pointer; border-radius: 5px; transition: background-color 0.3s ease, transform 0.1s ease; text-transform: uppercase; font-weight: bold; }
+button:hover { background-color: #FFFFFF; color: #FF0000; transform: translateY(-2px); }
+.controls p { font-size: 0.9em; color: #aaaaaa; margin-top: 20px; }
+
+/* Responsive adjustments */
+@media (max-width: 1100px) {
+    .simulation-area { flex-direction: column; align-items: center; }
+    #track-svg { margin: 0 auto 30px auto; width: 90%; height: auto; }
+    .leaderboard { width: 90%; border-left: none; border-top: 2px solid #FF0000; padding-left: 0; padding-top: 30px; }
+}
+
+/* Safety Car Message Styling */
+.safety-car-text {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 24px; /* Large text */
+    font-weight: bold;
+    fill: #FFFF00; /* Yellow text */
+    text-anchor: middle; /* Center horizontally */
+    dominant-baseline: hanging;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: none; /* Hidden by default */
+}
+
+/* Rain Effect Styles */
+#rain-container {
+    position: fixed; /* Cover the whole screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allow clicks to go through */
+    overflow: hidden; /* Hide drops outside the screen */
+    z-index: 999; /* Make sure rain is on top */
+    display: none; /* Hidden by default */
+}
+
+/* Show rain when body has the 'raining' class */
+body.raining #rain-container {
+    display: block;
+}
+
+.raindrop {
+    position: absolute;
+    bottom: 100%; /* Start above the screen */
+    width: 1px;
+    height: 50px; /* Length of the drop */
+    background: linear-gradient(to bottom, rgba(200, 200, 200, 0), rgba(200, 200, 200, 0.4)); /* Faded white/grey */
+    animation: fall linear infinite;
+}
+
+/* Animation definition */
+@keyframes fall {
+    to {
+        transform: translateY(100vh); /* Fall down the full height */
+        opacity: 0;
+    }
+}
+
+/* Style for the active rain button */
+button.active {
+    background-color: #ffffff; /* White background */
+    color: #FF0000; /* Red text */
+    box-shadow: inset 0 0 5px #000000; /* Inner shadow to look pressed */
+    transform: translateY(1px); /* Slight downward press */
+}
+
+/* Styling for the explanation note */
+.explanation-note {
+    font-size: 0.8em;
+    color: #aaaaaa; /* Lighter grey text */
+    text-align: center;
+    margin-top: 30px; /* Space above the note */
+    width: 90%;
+    max-width: 1200px;
+}
+
+/* AI Companion styles (widget) */
+#ai-companion-widget {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 340px;
+  z-index: 2500;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+#ai-companion-toggle {
+  background:#FF0000; color:#000; padding:11px 16px; border-radius:10px; font-weight:700; text-align:center; cursor:pointer;
+}
+#ai-companion-panel { display:none; margin-top:8px; background:#0b0b0b; border:2px solid #FF0000; border-radius:10px; overflow:hidden; max-height:520px;}
+#ai-companion-header { display:flex; justify-content:space-between; align-items:center; padding:8px 10px; color:#FF0000; border-bottom:1px solid #222;}
+#ai-companion-messages { padding:12px; height:330px; overflow:auto; color:#eee; background: linear-gradient(180deg,#080808,#111); font-size:0.95rem; }
+.com-msg { margin:8px 0; padding:8px 10px; border-radius:8px; max-width:86%; }
+.com-msg.user { background:#1a1a1a; color:#fff; margin-left:auto; text-align:right; }
+.com-msg.bot { background:#141414; border:1px solid rgba(255,0,0,0.08); color:#fff; margin-right:auto; text-align:left; }
+#ai-companion-form { display:flex; gap:8px; padding:8px; border-top:1px solid #222; background:#0b0b0b;}
+#ai-companion-input { flex:1; padding:8px 10px; border-radius:6px; border:1px solid #222; background:#0f0f0f; color:#fff; }
+#ai-companion-form button { background:#FF0000; color:#000; border:none; padding:8px 12px; border-radius:6px; font-weight:bold; cursor:pointer; }
+.ai-companion-closed #ai-companion-panel { display:none; }
+.ai-companion-open #ai-companion-panel { display:block; }
+/* === AI COMPANION STYLES === */
+#ai-companion-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  font-family: Arial, sans-serif;
+}
+
+.ai-toggle-btn {
+  background: #ff0000;
+  color: #000;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.ai-panel {
+  width: 300px;
+  height: 420px;
+  background: #111;
+  border: 2px solid #ff0000;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 10px #ff0000;
+  margin-top: 10px;
+  display: none;
+}
+
+.ai-companion-open .ai-panel { display: flex; }
+.ai-companion-closed .ai-panel { display: none; }
+
+.ai-panel-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: #ff0000;
+  color: #000;
+  font-weight: bold;
+}
+
+.ai-close-btn {
+  background: #000;
+  color: #ff0000;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.ai-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  color: #fff;
+}
+
+.com-msg.user {
+  text-align: right;
+  color: #00eaff;
+  margin-bottom: 10px;
+}
+
+.com-msg.bot {
+  text-align: left;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.ai-form {
+  display: flex;
+  padding: 10px;
+}
+
+.ai-form input {
+  flex: 1;
+  padding: 8px;
+  background: #222;
+  color: white;
+  border: 1px solid #444;
+}
+
+.ai-form button {
+  margin-left: 8px;
+  padding: 8px 14px;
+  background: #ff0000;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+.agent-controls {
+  margin-top: 18px;
+  border-top: 1px dashed #333;
+  padding-top: 12px;
+  width: 90%;
+  max-width: 1200px;
+  color: #ddd;
+}
+.agent-controls h3 { color: #ff4444; margin: 6px 0; font-size: 1.05em; }
+
+.agent-setting {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-bottom:8px;
+}
+.agent-setting label { min-width:120px; color:#ccc; font-size:0.95em; }
+.agent-setting input[type="number"] {
+  width:80px;
+  padding:6px;
+  border-radius:6px;
+  border:1px solid #333;
+  background:#0f0f0f;
+  color:#fff;
+}
+
+/* Extra control buttons */
+.controls-extra { margin-top:10px; }
+#stop-rain-btn, #pause-race-btn {
+  background:#222; color:#fff; border:1px solid #ff0000; padding:8px 12px; border-radius:6px; margin-right:8px; cursor:pointer;
+}
+#stop-rain-btn:hover, #pause-race-btn:hover { background:#111; }
+body.paused {
+  opacity: 0.85;
+  pointer-events: none; /* optional, prevents accidental clicks while paused */
+}
+body.paused #pause-race-btn { pointer-events: auto; } /* allow resume */
+/* --- NEW STYLES FOR INFO ICON AND MODAL --- */
+
+/* Info Icon 'i' */
+#info-icon {
+    position: fixed; /* Keep it on screen */
+    top: 20px;
+    right: 20px;
+    z-index: 1001; /* Above rain, below modal overlay */
+    background-color: #FF0000;
+    color: #FFFFFF;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif; /* Good for 'i' symbol */
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+}
+
+/* Modal Overlay (Hidden by default) */
+.modal-hidden {
+    display: none;
+}
+
+.modal-visible {
+    display: flex; /* Use flex to center */
+    justify-content: center;
+    align-items: center;
+    position: fixed; /* Cover entire screen */
+    z-index: 1002; /* Above everything */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Dim background */
+}
+
+/* Modal Content Box */
+.modal-content {
+    position: relative;
+    /* We can just re-use the strategy-overview style */
+}
+
+/* Modal Close Button 'x' */
+#modal-close-button {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #FFFFFF;
+    color: #000000;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 2px solid #000000;
+}
+#modal-close-button:hover {
+    background-color: #FF0000;
+    color: #FFFFFF;
+}
+
+/* Strategy Overview Box (Now inside modal) */
+.strategy-overview {
+    width: 450px; /* Make it a good modal size */
+    margin-top: 0; /* Remove margin */
+    padding: 20px;
+    background-color: #1a1a1a;
+    border-radius: 5px;
+    border: 1px solid #FF0000; /* Red border */
+}
+.strategy-overview h3 {
+    font-size: 1.2em;
+    color: #FF0000;
+    margin-top: 0;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #FF0000;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+}
+.strategy-overview ul {
+    list-style: disc; /* Use bullets inside modal */
+    padding-left: 20px; /* Indent bullets */
+    margin: 0;
+}
+.strategy-overview li {
+    font-size: 0.9em;
+    color: #ccc;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+.strategy-overview li strong {
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+/* Leaderboard Table Column Widths (Tune as needed) */
+table {
+    font-size: 0.75em; /* Make text even smaller to fit new column */
+}
+
+/* Flash animation for Pitting */
+@keyframes flash {
+    0%, 100% {
+        background-color: transparent;
+    }
+    50% {
+        background-color: rgba(255, 255, 0, 0.3); /* Faint yellow flash */
+    }
+}
+.pit-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 200, 0, 0.95);
+  padding: 14px 22px;
+  border-radius: 10px;
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.5s ease-out, transform 0.4s ease;
+  transform: translateY(0px);
+}
+
+.pit-popup.fade {
+  opacity: 0;
+  transform: translateY(-15px);
+}
