@@ -1,5 +1,4 @@
 # Aegis
-Aegis – Real-Time F1 Strategy &amp; Simulation AI  An interactive Formula-1 race strategy platform built for our hackathon. Aegis combines real-time car simulation, AI race strategy advice, an AI companion, and live telemetry visuals — all running locally.
 
 Aegis is our hackathon-built F1 simulation experience created specifically for the TrackShift Hackathon — blending real-time race visuals, AI-powered race strategy, and a team radio companion with personality.
 Everything runs locally, everything updates live, and everything was crafted from scratch under hackathon time pressure.
