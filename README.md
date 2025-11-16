@@ -1,34 +1,225 @@
-Aegis: AI Race Companion - Demo
-=============================
+Aegis – Real-Time F1 Race Strategy & AI Companion
+Built for the TrackShift Hackathon
+“Winning a race is more than speed — it’s strategy, intuition, and data working together.”
 
-What's included
-- `index.html` - Frontend demo (SVG track, agents, leaderboard, controls)
-- `style.css` - Styling for the page and the AI companion widget
-- `script.js` - Simulation logic + AI Companion frontend code
-- `server.js` - Node/Express backend with `/api/ai-strategy` endpoint (forwards to OpenAI)
-- `package.json` - NPM deps and start script
-- `.env.example` - Example environment file
+Aegis is our hackathon-built F1 simulation experience created specifically for the TrackShift Hackathon — blending real-time race visuals, AI-powered race strategy, and a team radio companion with personality.
+Everything runs locally, everything updates live, and everything was crafted from scratch under hackathon pressure.
 
-How to run locally (VS Code)
-1. Install Node.js (>=16 recommended).
-2. Copy `.env.example` to `.env` and set `OPENAI_API_KEY` with your OpenAI API key.
-3. Install dependencies:
-   ```
-   npm install
-   ```
-4. Start the backend:
-   ```
-   npm start
-   ```
-   This runs the Express server on `http://localhost:3000` by default.
+This project is not just a prototype — it’s our attempt to capture the emotion of being inside a real F1 race team.
 
-5. Open `index.html` in the browser:
-   - For best results, serve the folder with a small static server (so fetch calls to `/api/ai-strategy` work easily). Example:
-     ```
-     npx serve .
-     ```
-     Or open VS Code Live Server extension and serve the workspace root.
+🚀 Why We Built This
 
-Notes
-- The demo calls the OpenAI chat completions endpoint. Make sure your API key has access to the specified model or change `model` in `server.js`.
-- Keep your API key secret; do not commit it to version control.
+We wanted to build something that feels alive:
+
+✨ A car racing in real-time
+✨ An AI strategist thinking like a real F1 engineer
+✨ A team radio companion who reacts emotionally
+✨ Rivals with human-like flaws & tyre-driven behavior
+
+Aegis merges simulation + strategy + personality into one immersive racing experience.
+
+🏎️ 1. Real-Time Race Track Simulation (Frontend)
+
+We built a mini racing world directly in the browser using pure HTML, CSS, and JavaScript.
+
+Features
+
+SVG-based dynamic car movement
+
+Lap counter & speed simulation
+
+Pitlane detection
+
+Visual pit-lane cues
+
+Toast notifications for key events
+
+Fully responsive UI
+
+Powered by: index.html, script.js, style.css
+
+This creates a smooth, reactive F1-style dashboard that feels alive.
+
+🤖 2. AI Strategy Engine (Node.js + OpenAI)
+
+Our “Chief Strategy Officer” analyzes the race and gives human-like strategic decisions.
+
+Endpoint
+POST /api/ai-strategy
+
+Generates
+
+Strategy recommendations
+
+Tyre compound calls
+
+Fuel & undercut/overcut logic
+
+Safety car scenarios
+
+Real-time, context-based feedback
+
+The strategist blends car data + user questions + race context to produce detailed insights.
+
+🎙️ 3. AI Team Radio Companion (FastAPI WebSocket)
+
+A personality-driven race engineer who talks to you in real time.
+
+Highlights
+
+Stateful live chat sessions
+
+“Assistant is typing…” delay for realism
+
+Emotion-based responses
+
+Personality-driven tone
+
+Live WebSocket communication
+
+Runs on port 8000
+
+WebSocket Endpoint
+ws://localhost:8000/ws/companion/{session_id}
+
+
+This companion doesn’t just answer you — it reacts to the race.
+
+🧠 4. Our Solution: The “Human-Flaw” AI Engine
+
+Real racing isn’t perfect — drivers make mistakes, overpush, or hold back.
+We built the Human-Flaw AI Engine to model this human element.
+
+What it does
+
+Creates AI rivals with distinct personalities:
+
+Aggressor (Soft tyres): Fast early, risky, drops off late
+
+Veteran (Hard tyres): Conservative early, strong long-run pace
+
+Introduces human-like imperfections:
+
+hesitation
+
+overconfidence
+
+delayed reactions
+
+emotional spikes
+
+mild miscalculations
+
+This makes the race feel dynamic, unpredictable, and human — not robotic.
+
+🔮 Future ML Upgrade
+
+We plan to train real ML models using driver datasets to capture:
+
+authentic driving styles
+
+overtaking tendencies
+
+tyre management
+
+pressure behavior
+
+pit timing patterns
+
+This will transform our handcrafted personas into data-driven adaptive AI rivals.
+
+🧩 5. Modular Architecture
+frontend/
+ ├── index.html
+ ├── script.js
+ └── style.css
+
+backend/
+ └── mock_companion.py      # FastAPI WebSocket AI companion
+
+server.js                    # Node.js OpenAI strategy engine
+requirements.txt
+package.json
+
+
+Each module is independent, making the project easy to extend or replace.
+
+🛠️ Tech Stack
+Frontend
+
+HTML / CSS / Vanilla JS
+
+SVG-based race animation
+
+Toast notifications
+
+WebSocket integration
+
+Backend
+
+FastAPI (Python) — AI companion
+
+Node.js + Express — strategy engine
+
+OpenAI API — decision-making logic
+
+Hybrid REST + WebSocket architecture
+
+⚙️ Setup & Run Instructions
+1️⃣ Clone the Repository
+git clone https://github.com/<your-username>/Aegis.git
+cd Aegis
+
+2️⃣ Run FastAPI Companion
+pip install -r requirements.txt
+cd backend
+uvicorn mock_companion:app --host 0.0.0.0 --port 8000 --reload
+
+3️⃣ Run Node.js Strategy Engine
+npm install
+
+
+Create .env:
+
+OPENAI_API_KEY=your_key_here
+
+
+Run:
+
+node server.js
+
+4️⃣ Run Frontend
+
+Open:
+
+index.html
+
+
+Or serve with:
+
+npx serve .
+
+🎯 Future Improvements
+
+ML-based driver personality modeling
+
+Multi-car simulation
+
+Real telemetry ingestion
+
+Predictive tyre wear models
+
+Cloud deployment
+
+Race replay mode
+
+👥 Team
+Built during the TrackShift Hackathon with passion, caffeine, and a love for motorsport.
+Vaidehi Wate & Aditi Rajput 
+
+❤️ Final Note
+
+Aegis blends AI, simulation, and storytelling — turning racing into a human experience, not just a technical one.
+
+If you’re reading this, thank you for checking out our work!
+Feel free to contribute, fork, or share.
