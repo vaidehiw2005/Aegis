@@ -204,13 +204,9 @@ Driver personality modules
 ✨ Team & Credits
 
 Built with dedication, caffeine, and way too much excitement during our hackathon.
-
-Vaidehi Wate – Simulation logic, frontend integration, architecture
-
-You can add more teammates here if needed
+Vaidehi Wate & Aditi Rajput – Simulation logic, frontend integration, architecture
 
 ❤️ Final Note
-
 Aegis represents what we genuinely love building —
 experiences that merge AI, simulation, and storytelling.
 
